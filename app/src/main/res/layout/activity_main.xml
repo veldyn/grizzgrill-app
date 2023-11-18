@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <Spinner
+        android:id="@+id/manageSelectSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="60dp">
+
+        <TextView
+            android:id="@+id/headerOne"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add an Employee"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/headerOneButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add"
+            android:textSize="16sp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignEnd="@+id/headerOne"/>
+
+        <EditText
+            android:id="@+id/headerOneEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:importantForAutofill="no"
+            android:hint="Employee Name Here"
+            android:textSize="16sp"
+            android:layout_below="@+id/headerOne"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="60dp">
+
+        <TextView
+            android:id="@+id/headerTwo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Assign an Employee"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/headerTwoButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Assign"
+            android:textSize="16sp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignEnd="@+id/headerTwo"/>
+
+        <Spinner
+            android:id="@+id/headerTwoSpinner1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/headerTwo"
+            android:paddingTop="10dp"/>
+
+        <Spinner
+            android:id="@+id/headerTwoSpinner2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/headerTwoSpinner1"
+            android:paddingTop="10dp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="60dp">
+
+        <TextView
+            android:id="@+id/headerThree"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Remove an Employee"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/headerThreeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Remove"
+            android:textSize="16sp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignEnd="@+id/headerThree"/>
+
+        <Spinner
+            android:id="@+id/headerThreeSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/headerThree"
+            android:paddingTop="10dp"/>
+
+    </RelativeLayout>
+
+</LinearLayout>
