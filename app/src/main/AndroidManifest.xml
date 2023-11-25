@@ -13,6 +13,12 @@
         android:theme="@style/Theme.Grizzgrillapp"
         tools:targetApi="31">
         <activity
+            android:name=".TableOrder"
+            android:exported="false" />
+        <activity
+            android:name=".TablePage"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
