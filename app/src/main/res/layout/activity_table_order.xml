@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TableOrder">
+    tools:context=".TableOrder"
+    android:background="@color/blackish">
 
     <TextView
         android:id="@+id/TableSelectHeader"
@@ -13,7 +14,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="Table Selected:"
-        android:textSize="16sp"
+        android:textSize="20sp"
+        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,7 +26,8 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="36dp"
         android:text="Orders:"
-        android:textSize="16sp"
+        android:textSize="20sp"
+        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TableText" />
 
@@ -35,7 +38,8 @@
         android:layout_marginStart="88dp"
         android:layout_marginTop="16dp"
         android:text="Assigned Waitress:"
-        android:textSize="16sp"
+        android:textSize="20sp"
+        android:textColor="@color/white"
         app:layout_constraintStart_toEndOf="@+id/TableSelectHeader"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,6 +49,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
         android:text="Table1"
+        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="@+id/TableSelectHeader"
         app:layout_constraintTop_toBottomOf="@+id/TableSelectHeader" />
 
@@ -53,6 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Andersen"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="@+id/waitressHeader"
         app:layout_constraintTop_toBottomOf="@+id/waitressHeader" />
 
