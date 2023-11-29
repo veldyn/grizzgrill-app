@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Create Activities to link with intent
         customerActivity = new Intent(this, TablePage.class);
-        managementActivity = new Intent(this, EmpTableAssign.class);
+        managementActivity = new Intent(this, ManagementMenu.class);
 
         customerBtn.setOnClickListener(new View.OnClickListener() {
             @Override

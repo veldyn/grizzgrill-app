@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Grizzgrillapp"
         tools:targetApi="31">
         <activity
+            android:name=".ManagementMenu"
+            android:exported="false" />
+        <activity
             android:name=".EmpTableAssign"
             android:exported="false" />
         <activity
