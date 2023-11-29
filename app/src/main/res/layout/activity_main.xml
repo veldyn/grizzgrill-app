@@ -6,11 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:background="@color/blackish">
+
 
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/introText"
@@ -18,26 +20,38 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Welcome to GrizzGrill!"
+        android:textColor="@color/white"
         android:layout_centerHorizontal="true" />
+
+        <ImageView
+            android:id="@+id/grizzLogo"
+            android:layout_width="500dp"
+            android:layout_height="350dp"
+            android:src="@drawable/ggicon"
+            android:layout_below="@+id/introText"
+            android:layout_marginTop="50dp"/>
 
         <TextView
             android:id="@+id/selectText"
             android:textSize="20sp"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Please select Customer or Management"
-            android:layout_centerHorizontal="true"
+            android:textColor="@color/white"
             android:layout_below="@id/introText"
-            android:padding="10dp"/>
+            android:layout_centerInParent="true" />
 
     <Button
         android:id="@+id/customerBtn"
-        android:layout_below="@+id/selectText"
+        android:layout_below="@+id/grizzLogo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Customer"
         android:textSize="40sp"
+        android:textColor="@color/black"
+        android:backgroundTint="@color/yellow"
         android:layout_centerHorizontal="true" />
+
     <Button
         android:id="@+id/managementBtn"
         android:layout_below="@+id/customerBtn"
@@ -45,7 +59,10 @@
         android:layout_height="wrap_content"
         android:text="Management"
         android:textSize="40sp"
-        android:layout_centerHorizontal="true"/>
+        android:textColor="@color/black"
+        android:backgroundTint="@color/yellow"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"/>
 
     </RelativeLayout>
 
