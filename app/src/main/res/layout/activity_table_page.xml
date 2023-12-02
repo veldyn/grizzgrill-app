@@ -17,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:text="HeaderEmployee"
+        android:text="Select Employee"
         android:textSize="24sp"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,7 +60,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:background="@drawable/rect"
-                android:text="Hello World 1"
+                android:text="Table 1 - Seats 8"
                 android:textColor="@color/black"
                 android:textSize="20dp"
                 android:layout_marginBottom="25dp" />
@@ -70,7 +70,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:background="@drawable/rect"
-                android:text="Hello World 2"
+                android:text="Table 2 - Seats 2"
                 android:textColor="@color/black"
                 android:textSize="20dp"
                 android:layout_marginBottom="25dp" />
@@ -80,7 +80,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:background="@drawable/rect"
-                android:text="Hello World 3"
+                android:text="Table 3 - Seats 4"
                 android:textColor="@color/black"
                 android:textSize="20dp"
                 android:layout_marginBottom="25dp" />
@@ -90,7 +90,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:background="@drawable/rect"
-                android:text="Hello World 4"
+                android:text="Table 4 - Seats 6"
                 android:textColor="@color/black"
                 android:textSize="20dp"
                 android:layout_marginBottom="25dp" />

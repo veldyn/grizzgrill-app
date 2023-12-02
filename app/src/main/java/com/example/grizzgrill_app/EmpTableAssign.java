@@ -3,8 +3,12 @@ package com.example.grizzgrill_app;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,8 +19,15 @@ import android.widget.TextView;
 
 import com.example.grizzgrill_app.R;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+
 public class EmpTableAssign extends AppCompatActivity {
 
+    //Database stuff:
+    public static SQLiteDatabase db;
+    DBHelper myDBHelper;
 
     //Spinner components (Manage Employees / Manage Tables):
     Spinner ManageSelectSpinner;
@@ -45,13 +56,18 @@ public class EmpTableAssign extends AppCompatActivity {
     //Generic Components for Functionality:
 
     String[] EmployeeNames = {"Steve", "George", "Jenna"};
+
+    ArrayList<String> ENames;
+    ArrayList<Integer> TableNumbers;
     String[] TableIDs = {"1", "2", "3"};
+    String Query = "";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_emp_table_assign);
+
 
         //Assign Spinner components to XML equivalents:
         ManageSelectSpinner = findViewById(R.id.manageSelectSpinner);
@@ -69,9 +85,9 @@ public class EmpTableAssign extends AppCompatActivity {
         HeaderTwoSpinner1 = findViewById(R.id.headerTwoSpinner1);
         HeaderTwoSpinner2 = findViewById(R.id.headerTwoSpinner2);
         HeaderTwoSpinner1Adapter = new ArrayAdapter(this, R.layout.managespinnerlayout, TableIDs);
-        HeaderTwoSpinner2Adapter = new ArrayAdapter(this, R.layout.managespinnerlayout, EmployeeNames);
+        //HeaderTwoSpinner2Adapter = new ArrayAdapter<String>(this, R.layout.managespinnerlayout, ENames);
         HeaderTwoSpinner1.setAdapter(HeaderTwoSpinner1Adapter);
-        HeaderTwoSpinner2.setAdapter(HeaderTwoSpinner2Adapter);
+        //HeaderTwoSpinner2.setAdapter(HeaderTwoSpinner2Adapter);
 
         //Assign HeaderThree components to XML equivalents:
         HeaderThree = findViewById(R.id.headerThree);
@@ -79,6 +95,11 @@ public class EmpTableAssign extends AppCompatActivity {
         HeaderThreeSpinner = findViewById(R.id.headerThreeSpinner);
         HeaderThreeSpinnerAdapter = new ArrayAdapter(this, R.layout.managespinnerlayout, EmployeeNames);
         HeaderThreeSpinner.setAdapter(HeaderThreeSpinnerAdapter);
+
+        createDB();
+        //Query = "PRAGMA database_list;";
+        Query = "SELECT * FROM CUSTOMER;";
+        getResult(Query);
 
         ManageSelectSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -128,4 +149,41 @@ public class EmpTableAssign extends AppCompatActivity {
             }
         });
     }
+    public void createDB() {
+        myDBHelper = new DBHelper(this);
+        try {
+            myDBHelper.createDataBase();
+
+        } catch (IOException ioe) {
+
+            throw new Error("Unable to create database");
+        }
+
+        try {
+            myDBHelper.openDataBase();
+        } catch (SQLException sqle) {
+        }
+        db = myDBHelper.getWritableDatabase();
+    }
+
+    public void getResult(String q) {
+        Cursor result = db.rawQuery(q, null);
+        result.moveToFirst();
+        int count = result.getCount();
+        Log.i("count=", String.valueOf(count));
+        //arrays for name, ingredients and preparation for each recipe
+        ENames = new ArrayList<String>();
+        String[] testArr;
+        //just to give number for each recipe
+        int i = 1;
+        if (count >= 1) {
+            do {
+                ENames.add(result.getString(2));
+                i++;
+            } while (result.moveToNext());
+        }
+        String[] ENamesArr = ENames.toArray(new String[ENames.size()]);
+        HeaderTwoSpinner2Adapter = new ArrayAdapter(this, R.layout.managespinnerlayout, ENamesArr);
+        HeaderTwoSpinner2.setAdapter(HeaderTwoSpinner2Adapter);
+    }//end of getResult
 }

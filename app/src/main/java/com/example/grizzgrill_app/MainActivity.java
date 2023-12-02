@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.view.View;
@@ -16,11 +18,12 @@ import android.widget.TextView;
 
 import com.example.grizzgrill_app.R;
 
+import java.io.IOException;
+
 public class MainActivity extends AppCompatActivity {
     //Buttons for Customer and Management View:
     Button customerBtn;
     Button managementBtn;
-
     Intent customerActivity;
     Intent managementActivity;
 
