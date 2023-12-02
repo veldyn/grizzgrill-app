@@ -64,12 +64,44 @@
 
     <ScrollView
         android:id="@+id/OrdersOnTable"
-        android:layout_width="351dp"
-        android:layout_height="396dp"
+        android:layout_width="377dp"
+        android:layout_height="205dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="12dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/OrdersHeader">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="313dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="4dp"
+        android:text="add Item"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Spinner
+        android:id="@+id/CatagorySelect"
+        android:layout_width="339dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="13dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/OrdersOnTable" />
+
+    <ScrollView
+        android:id="@+id/newItemSelect"
+        android:layout_width="362dp"
+        android:layout_height="259dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/CatagorySelect">
 
         <LinearLayout
             android:layout_width="match_parent"
