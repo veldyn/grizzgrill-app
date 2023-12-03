@@ -95,8 +95,9 @@ public class EmpTableAssign extends AppCompatActivity {
         HeaderThreeSpinnerAdapter = new ArrayAdapter(this, R.layout.managespinnerlayout, EmployeeNames);
         HeaderThreeSpinner.setAdapter(HeaderThreeSpinnerAdapter);
 
+        //Database stuff goes at the end of onCreate
         createDB();
-        Query = "select * from customer";
+        Query = "SELECT EMPLOYEE_NAME FROM EMPLOYEES";
         getResult(Query);
 
         ManageSelectSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -160,7 +161,8 @@ public class EmpTableAssign extends AppCompatActivity {
         int i = 1;
         if (count >= 1) {
             do {
-                ENames.add(result.getString(1));
+                //Adjust column index for appropriate column (will be 0 most times)
+                ENames.add(result.getString(0));
                 i++;
             } while (result.moveToNext());
         }
