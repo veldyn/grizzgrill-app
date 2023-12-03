@@ -68,7 +68,6 @@ public class EmpTableAssign extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_emp_table_assign);
 
-
         //Assign Spinner components to XML equivalents:
         ManageSelectSpinner = findViewById(R.id.manageSelectSpinner);
         ManageSelectAdapter = new ArrayAdapter(this, R.layout.managespinnerlayout, ManageSpinnerOptions);
@@ -97,8 +96,7 @@ public class EmpTableAssign extends AppCompatActivity {
         HeaderThreeSpinner.setAdapter(HeaderThreeSpinnerAdapter);
 
         createDB();
-        //Query = "PRAGMA database_list;";
-        Query = "SELECT * FROM CUSTOMER;";
+        Query = "select * from customer";
         getResult(Query);
 
         ManageSelectSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -147,8 +145,30 @@ public class EmpTableAssign extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
+
         });
     }
+    public void getResult(String q) {
+        Cursor result = db.rawQuery(q, null);
+        result.moveToFirst();
+        int count = result.getCount();
+        Log.i("count=", String.valueOf(count));
+        //arrays for name, ingredients and preparation for each recipe
+        ENames = new ArrayList<String>();
+        String[] testArr;
+        //just to give number for each recipe
+        int i = 1;
+        if (count >= 1) {
+            do {
+                ENames.add(result.getString(1));
+                i++;
+            } while (result.moveToNext());
+        }
+        String[] ENamesArray = ENames.toArray(new String[ENames.size()]);
+        HeaderTwoSpinner2Adapter = new ArrayAdapter(this, R.layout.managespinnerlayout, ENamesArray);
+        HeaderTwoSpinner2.setAdapter(HeaderTwoSpinner2Adapter);
+    }//end of getResult
+
     public void createDB() {
         myDBHelper = new DBHelper(this);
         try {
@@ -165,25 +185,4 @@ public class EmpTableAssign extends AppCompatActivity {
         }
         db = myDBHelper.getWritableDatabase();
     }
-
-    public void getResult(String q) {
-        Cursor result = db.rawQuery(q, null);
-        result.moveToFirst();
-        int count = result.getCount();
-        Log.i("count=", String.valueOf(count));
-        //arrays for name, ingredients and preparation for each recipe
-        ENames = new ArrayList<String>();
-        String[] testArr;
-        //just to give number for each recipe
-        int i = 1;
-        if (count >= 1) {
-            do {
-                ENames.add(result.getString(2));
-                i++;
-            } while (result.moveToNext());
-        }
-        String[] ENamesArr = ENames.toArray(new String[ENames.size()]);
-        HeaderTwoSpinner2Adapter = new ArrayAdapter(this, R.layout.managespinnerlayout, ENamesArr);
-        HeaderTwoSpinner2.setAdapter(HeaderTwoSpinner2Adapter);
-    }//end of getResult
 }
