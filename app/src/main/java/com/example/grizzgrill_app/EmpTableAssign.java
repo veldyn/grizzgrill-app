@@ -53,14 +53,20 @@ public class EmpTableAssign extends AppCompatActivity {
     Spinner HeaderThreeSpinner;
     ArrayAdapter HeaderThreeSpinnerAdapter;
 
+    //Variable to determine position of management spinner
+    Integer SpinnerPosition = 0;
+
     //Generic Components for Functionality:
 
-    String[] EmployeeNames = {"Steve", "George", "Jenna"};
+    //String[] EmployeeNames = {"Steve", "George", "Jenna"};
 
     ArrayList<String> ENames;
     ArrayList<Integer> TableNumbers;
-    String[] TableIDs = {"1", "2", "3"};
-    String Query = "";
+
+    //Queries for Database calls later:
+    String EQuery = "SELECT EMPLOYEE_NAME FROM EMPLOYEES";
+    String TQuery = "SELECT RTABLE_ID FROM RTABLES";
+    String AddEmployee = "INSERT INTO EMPLOYEES VALUES (";
 
 
     @Override
@@ -83,22 +89,16 @@ public class EmpTableAssign extends AppCompatActivity {
         HeaderTwoButton = findViewById(R.id.headerTwoButton);
         HeaderTwoSpinner1 = findViewById(R.id.headerTwoSpinner1);
         HeaderTwoSpinner2 = findViewById(R.id.headerTwoSpinner2);
-        HeaderTwoSpinner1Adapter = new ArrayAdapter(this, R.layout.managespinnerlayout, TableIDs);
-        //HeaderTwoSpinner2Adapter = new ArrayAdapter<String>(this, R.layout.managespinnerlayout, ENames);
-        HeaderTwoSpinner1.setAdapter(HeaderTwoSpinner1Adapter);
-        //HeaderTwoSpinner2.setAdapter(HeaderTwoSpinner2Adapter);
 
         //Assign HeaderThree components to XML equivalents:
         HeaderThree = findViewById(R.id.headerThree);
         HeaderThreeButton = findViewById(R.id.headerThreeButton);
         HeaderThreeSpinner = findViewById(R.id.headerThreeSpinner);
-        HeaderThreeSpinnerAdapter = new ArrayAdapter(this, R.layout.managespinnerlayout, EmployeeNames);
-        HeaderThreeSpinner.setAdapter(HeaderThreeSpinnerAdapter);
 
         //Database stuff goes at the end of onCreate
         createDB();
-        Query = "SELECT EMPLOYEE_NAME FROM EMPLOYEES";
-        getResult(Query);
+        getEResult(EQuery);
+        getTResult(TQuery);
 
         ManageSelectSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -120,6 +120,8 @@ public class EmpTableAssign extends AppCompatActivity {
                     HeaderThree.setVisibility(View.VISIBLE);
                     HeaderThreeSpinner.setVisibility(View.VISIBLE);
                     HeaderThreeButton.setVisibility(View.VISIBLE);
+
+                    SpinnerPosition = 0;
                 }
                 if (position == 1) {
                     //Enable Table Management options
@@ -139,6 +141,7 @@ public class EmpTableAssign extends AppCompatActivity {
                     HeaderThreeButton.setVisibility(View.INVISIBLE);
                     HeaderThreeSpinner.setVisibility(View.INVISIBLE);
 
+                    SpinnerPosition = 1;
                 }
             }
 
@@ -148,15 +151,30 @@ public class EmpTableAssign extends AppCompatActivity {
             }
 
         });
+
+        HeaderOneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Determine if to add Employee or Table:
+                if (SpinnerPosition == 0) {
+                    String EmployeeName = AddEmployee + HeaderOneEditText.getText().toString() + ")";
+                    //addEmployee(EmployeeName);
+                }
+                if (SpinnerPosition == 1) {
+
+                }
+
+            }
+        });
     }
-    public void getResult(String q) {
+    //GetResult method for Employee Names, set Spinner adapter.
+    public void getEResult(String q) {
         Cursor result = db.rawQuery(q, null);
         result.moveToFirst();
         int count = result.getCount();
         Log.i("count=", String.valueOf(count));
         //arrays for name, ingredients and preparation for each recipe
         ENames = new ArrayList<String>();
-        String[] testArr;
         //just to give number for each recipe
         int i = 1;
         if (count >= 1) {
@@ -169,7 +187,63 @@ public class EmpTableAssign extends AppCompatActivity {
         String[] ENamesArray = ENames.toArray(new String[ENames.size()]);
         HeaderTwoSpinner2Adapter = new ArrayAdapter(this, R.layout.managespinnerlayout, ENamesArray);
         HeaderTwoSpinner2.setAdapter(HeaderTwoSpinner2Adapter);
+
+        HeaderThreeSpinnerAdapter = new ArrayAdapter(this, R.layout.managespinnerlayout, ENamesArray);
+        HeaderThreeSpinner.setAdapter(HeaderThreeSpinnerAdapter);
     }//end of getResult
+
+    //getResult method for TableIDs, set spinner adapter.
+    public void getTResult(String q) {
+        Cursor result = db.rawQuery(q, null);
+        result.moveToFirst();
+        int count = result.getCount();
+        Log.i("count=", String.valueOf(count));
+        //arrays for name, ingredients and preparation for each recipe
+        TableNumbers = new ArrayList<Integer>();
+        //just to give number for each recipe
+        int i = 1;
+        if (count >= 1) {
+            do {
+                //Adjust column index for appropriate column (will be 0 most times)
+                TableNumbers.add(result.getInt(0));
+                i++;
+            } while (result.moveToNext());
+        }
+        Integer[] TNumbersArray = TableNumbers.toArray(new Integer[TableNumbers.size()]);
+        HeaderTwoSpinner1Adapter = new ArrayAdapter(this, R.layout.managespinnerlayout, TNumbersArray);
+        HeaderTwoSpinner1.setAdapter(HeaderTwoSpinner1Adapter);
+    }//end of getResult
+
+    /*
+    public void addEmployee(String q) {
+        //First execute query:
+        db.rawQuery(q, null);
+
+        //Now update EmployeeNames:
+
+
+        result.moveToFirst();
+        int count = result.getCount();
+        Log.i("count=", String.valueOf(count));
+        //arrays for name, ingredients and preparation for each recipe
+        ENames = new ArrayList<String>();
+        //just to give number for each recipe
+        int i = 1;
+        if (count >= 1) {
+            do {
+                //Adjust column index for appropriate column (will be 0 most times)
+                ENames.add(result.getString(0));
+                i++;
+            } while (result.moveToNext());
+        }
+        String[] ENamesArray = ENames.toArray(new String[ENames.size()]);
+        HeaderTwoSpinner2Adapter = new ArrayAdapter(this, R.layout.managespinnerlayout, ENamesArray);
+        HeaderTwoSpinner2.setAdapter(HeaderTwoSpinner2Adapter);
+
+        HeaderThreeSpinnerAdapter = new ArrayAdapter(this, R.layout.managespinnerlayout, ENamesArray);
+        HeaderThreeSpinner.setAdapter(HeaderThreeSpinnerAdapter);
+    }//end of getResult
+    */
 
     public void createDB() {
         myDBHelper = new DBHelper(this);
