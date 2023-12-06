@@ -53,9 +53,6 @@ public class EmpTableAssign extends AppCompatActivity {
     Spinner HeaderThreeSpinner;
     ArrayAdapter HeaderThreeSpinnerAdapter;
 
-    //Variable to determine position of management spinner
-    Integer SpinnerPosition = 0;
-
     //Generic Components for Functionality:
 
     //String[] EmployeeNames = {"Steve", "George", "Jenna"};
@@ -66,8 +63,10 @@ public class EmpTableAssign extends AppCompatActivity {
     //Queries for Database calls later:
     String EQuery = "SELECT EMPLOYEE_NAME FROM EMPLOYEES";
     String TQuery = "SELECT RTABLE_ID FROM RTABLES";
-    String AddEmployee = "INSERT INTO EMPLOYEES VALUES (";
-
+    String AddEmployee = "INSERT INTO EMPLOYEES (EMPLOYEE_ID, EMPLOYEE_NAME) VALUES (NULL, ";
+    String RemoveEmployee = "DELETE FROM EMPLOYEES WHERE EMPLOYEE_NAME = ";
+    String AddTable = "INSERT INTO RTABLES (RTABLE_ID, RTABLE_SEATS, RTABLE_STATUS) VALUES (NULL, ";
+    String RemoveTable = "DELETE FROM RTABLES WHERE RTABLE_ID = ";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,8 +119,6 @@ public class EmpTableAssign extends AppCompatActivity {
                     HeaderThree.setVisibility(View.VISIBLE);
                     HeaderThreeSpinner.setVisibility(View.VISIBLE);
                     HeaderThreeButton.setVisibility(View.VISIBLE);
-
-                    SpinnerPosition = 0;
                 }
                 if (position == 1) {
                     //Enable Table Management options
@@ -140,8 +137,6 @@ public class EmpTableAssign extends AppCompatActivity {
                     HeaderThreeButton.setVisibility(View.INVISIBLE);
                     HeaderThreeButton.setVisibility(View.INVISIBLE);
                     HeaderThreeSpinner.setVisibility(View.INVISIBLE);
-
-                    SpinnerPosition = 1;
                 }
             }
 
@@ -152,15 +147,63 @@ public class EmpTableAssign extends AppCompatActivity {
 
         });
 
+        //Adding Employee or Table:
         HeaderOneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Determine if to add Employee or Table:
-                if (SpinnerPosition == 0) {
-                    String EmployeeName = AddEmployee + HeaderOneEditText.getText().toString() + ")";
-                    //addEmployee(EmployeeName);
+                if (ManageSelectSpinner.getSelectedItemPosition() == 0) {
+                    String EmployeeName = AddEmployee + "'" + HeaderOneEditText.getText().toString() + "');";
+                    addEmployee(EmployeeName);
+
                 }
-                if (SpinnerPosition == 1) {
+                if (ManageSelectSpinner.getSelectedItemPosition() == 1) {
+                    String TableDef = AddTable + "4, 0);";
+                    addTable(TableDef);
+                }
+
+            }
+        });
+
+        //Assigning Employees or Removing Table:
+        HeaderTwoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Determine if to remove Employee or Table:
+                if (ManageSelectSpinner.getSelectedItemPosition() == 0) {
+                    //If SpinnerPosition is on Employee:
+                    //Assign Employee to Table
+
+                    //String AssignQuery = RemoveEmployee + "'" + (HeaderThreeSpinner.getSelectedItem().toString()) + "';";
+                    //assignEmployee(EmployeeName, );
+                }
+                if (ManageSelectSpinner.getSelectedItemPosition() == 1) {
+                    //If SpinnerPosition is on Table:
+                    //Remove Table where ID = SpinnerPosition
+                    String TableNo = RemoveTable + (HeaderTwoSpinner1.getSelectedItem().toString()) + ";";
+                    removeTable(TableNo);
+
+                }
+
+            }
+        });
+
+        //Removing Employee:
+        HeaderThreeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Determine if to remove Employee or Table:
+                if (ManageSelectSpinner.getSelectedItemPosition() == 0) {
+                    //If SpinnerPosition is on Employee:
+                    //Remove Employee where ID = SpinnerPosition
+                    String EmployeeName = RemoveEmployee + "'" + (HeaderThreeSpinner.getSelectedItem().toString()) + "';";
+                    removeEmployee(EmployeeName);
+                }
+                if (ManageSelectSpinner.getSelectedItemPosition() == 1) {
+                    //If SpinnerPosition is on Table:
+                    //Remove Table where ID = SpinnerPosition
+                    String TableNo = RemoveTable + "'" + (HeaderThreeSpinner.getSelectedItem().toString()) + "');";
+                    removeTable(TableNo);
 
                 }
 
@@ -184,12 +227,25 @@ public class EmpTableAssign extends AppCompatActivity {
                 i++;
             } while (result.moveToNext());
         }
-        String[] ENamesArray = ENames.toArray(new String[ENames.size()]);
-        HeaderTwoSpinner2Adapter = new ArrayAdapter(this, R.layout.managespinnerlayout, ENamesArray);
-        HeaderTwoSpinner2.setAdapter(HeaderTwoSpinner2Adapter);
+        if (HeaderTwoSpinner2Adapter == null) {
+            HeaderTwoSpinner2Adapter = new ArrayAdapter(this, R.layout.managespinnerlayout, ENames);
+            HeaderTwoSpinner2.setAdapter(HeaderTwoSpinner2Adapter);
+        } else {
+            HeaderTwoSpinner2Adapter.clear();
+            HeaderTwoSpinner2Adapter.addAll(ENames);
+            HeaderTwoSpinner2Adapter.notifyDataSetChanged();
+            HeaderTwoSpinner2.setAdapter(HeaderTwoSpinner2Adapter);
+        }
+        if (HeaderThreeSpinnerAdapter == null) {
+            HeaderThreeSpinnerAdapter = new ArrayAdapter(this, R.layout.managespinnerlayout, ENames);
+            HeaderThreeSpinner.setAdapter(HeaderThreeSpinnerAdapter);
+        } else {
+            HeaderThreeSpinnerAdapter.clear();
+            HeaderThreeSpinnerAdapter.addAll(ENames);
+            HeaderThreeSpinnerAdapter.notifyDataSetChanged();
+            HeaderThreeSpinner.setAdapter(HeaderThreeSpinnerAdapter);
+        }
 
-        HeaderThreeSpinnerAdapter = new ArrayAdapter(this, R.layout.managespinnerlayout, ENamesArray);
-        HeaderThreeSpinner.setAdapter(HeaderThreeSpinnerAdapter);
     }//end of getResult
 
     //getResult method for TableIDs, set spinner adapter.
@@ -209,41 +265,42 @@ public class EmpTableAssign extends AppCompatActivity {
                 i++;
             } while (result.moveToNext());
         }
-        Integer[] TNumbersArray = TableNumbers.toArray(new Integer[TableNumbers.size()]);
-        HeaderTwoSpinner1Adapter = new ArrayAdapter(this, R.layout.managespinnerlayout, TNumbersArray);
-        HeaderTwoSpinner1.setAdapter(HeaderTwoSpinner1Adapter);
+        if (HeaderTwoSpinner1Adapter == null) {
+            HeaderTwoSpinner1Adapter = new ArrayAdapter(this, R.layout.managespinnerlayout, TableNumbers);
+            HeaderTwoSpinner1.setAdapter(HeaderTwoSpinner1Adapter);
+        } else {
+            HeaderTwoSpinner1Adapter.clear();
+            HeaderTwoSpinner1Adapter.addAll(TableNumbers);
+            HeaderTwoSpinner1Adapter.notifyDataSetChanged();
+            HeaderTwoSpinner1.setAdapter(HeaderTwoSpinner1Adapter);
+        }
     }//end of getResult
 
-    /*
     public void addEmployee(String q) {
         //First execute query:
-        db.rawQuery(q, null);
-
+        db.execSQL(q);
         //Now update EmployeeNames:
+        getEResult(EQuery);
+    }
+    public void addTable(String q) {
+        //First execute query:
+        db.execSQL(q);
+        //Now update EmployeeNames:
+        getTResult(TQuery);
+    }
 
-
-        result.moveToFirst();
-        int count = result.getCount();
-        Log.i("count=", String.valueOf(count));
-        //arrays for name, ingredients and preparation for each recipe
-        ENames = new ArrayList<String>();
-        //just to give number for each recipe
-        int i = 1;
-        if (count >= 1) {
-            do {
-                //Adjust column index for appropriate column (will be 0 most times)
-                ENames.add(result.getString(0));
-                i++;
-            } while (result.moveToNext());
-        }
-        String[] ENamesArray = ENames.toArray(new String[ENames.size()]);
-        HeaderTwoSpinner2Adapter = new ArrayAdapter(this, R.layout.managespinnerlayout, ENamesArray);
-        HeaderTwoSpinner2.setAdapter(HeaderTwoSpinner2Adapter);
-
-        HeaderThreeSpinnerAdapter = new ArrayAdapter(this, R.layout.managespinnerlayout, ENamesArray);
-        HeaderThreeSpinner.setAdapter(HeaderThreeSpinnerAdapter);
-    }//end of getResult
-    */
+    public void removeEmployee(String q) {
+        //First execute query:
+        db.execSQL(q);
+        //Now update EmployeeNames:
+        getEResult(EQuery);
+    }
+    public void removeTable(String q) {
+        //First execute query:
+        db.execSQL(q);
+        //Now update EmployeeNames:
+        getTResult(TQuery);
+    }
 
     public void createDB() {
         myDBHelper = new DBHelper(this);
