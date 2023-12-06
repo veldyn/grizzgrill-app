@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         managementBtn = findViewById(R.id.managementBtn);
 
         //Create Activities to link with intent
-        customerActivity = new Intent(this, TablePage.class);
+        customerActivity = new Intent(this, CustomerMenu.class);
         managementActivity = new Intent(this, ManagementMenu.class);
 
         customerBtn.setOnClickListener(new View.OnClickListener() {

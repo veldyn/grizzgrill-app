@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ManagementMenu"
+    android:orientation="vertical"
+    android:background="@color/blackish">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <TextView
+            android:id="@+id/introTextCustomer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Customer Menu"
+            android:textSize="40sp"
+            android:textColor="@color/white"
+            android:layout_centerHorizontal="true"/>
+
+        <Button
+            android:id="@+id/menuPageBtn"
+            android:layout_below="@+id/introTextCustomer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="View Menu"
+            android:textSize="40sp"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/yellow"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp" />
+    </RelativeLayout>
+</LinearLayout>
