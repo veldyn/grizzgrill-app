@@ -67,7 +67,7 @@ public class EmpTableAssign extends AppCompatActivity {
     String RemoveEmployee = "DELETE FROM EMPLOYEES WHERE EMPLOYEE_NAME = ";
     String AddTable = "INSERT INTO RTABLES (RTABLE_ID, RTABLE_SEATS, RTABLE_STATUS) VALUES (NULL, ";
     String RemoveTable = "DELETE FROM RTABLES WHERE RTABLE_ID = ";
-
+    String AssignEmployee = "UPDATE RTABLES SET EMPLOYEE_ID = ";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -174,7 +174,12 @@ public class EmpTableAssign extends AppCompatActivity {
                     //If SpinnerPosition is on Employee:
                     //Assign Employee to Table
 
-                    //String AssignQuery = RemoveEmployee + "'" + (HeaderThreeSpinner.getSelectedItem().toString()) + "';";
+                    //Get EmployeeID:
+                    String EMP_Q = " WHERE RTABLE_ID =";
+                    String estring = "";
+                    String cstring = ";";
+                    String assignString = AssignEmployee + HeaderTwoSpinner2.getSelectedItemPosition() + estring + EMP_Q + HeaderTwoSpinner1.getSelectedItem().toString() + cstring;
+                    db.execSQL(assignString);
                     //assignEmployee(EmployeeName, );
                 }
                 if (ManageSelectSpinner.getSelectedItemPosition() == 1) {
