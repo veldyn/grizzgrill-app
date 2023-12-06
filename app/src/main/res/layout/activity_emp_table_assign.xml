@@ -47,9 +47,11 @@
             android:importantForAutofill="no"
             android:hint="Employee Name Here"
             android:textSize="16sp"
+            android:textColor="@color/white"
             android:layout_below="@+id/headerOne"
             android:backgroundTint="@color/white"
-            android:textColorHint="@color/white"/>
+            android:textColorHint="@color/white"
+            android:textColorHighlight="@color/white"/>
 
     </RelativeLayout>
 
