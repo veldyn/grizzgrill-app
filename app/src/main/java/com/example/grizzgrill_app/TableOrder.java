@@ -17,6 +17,7 @@ import android.widget.Spinner;
 public class TableOrder extends AppCompatActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener{
     ListView lvSelection;
     ListView lvOrders;
+    ArrayAdapter adapterT;
     ArrayAdapter myArrayAdapter;
     ArrayAdapter OrdersAdapter;
     String[] SpinnerArr = {"Breakfast", "Lunch", "Dinner", "Dessert"};
@@ -57,6 +58,17 @@ public class TableOrder extends AppCompatActivity implements AdapterView.OnItemC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_table_order);
 
+        Spinner spinnerT = findViewById(R.id.TableSp);
+
+        // Creating an ArrayAdapter using the string array and a default spinner layout
+        String[] numbers = {"1", "2", "3", "4", "5"};
+        adapterT = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, numbers);
+
+        // Specify the layout to use when the list of choices appears
+        adapterT.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // Apply the adapter to the spinner
+        spinnerT.setAdapter(adapterT);
 
         lvSelection = findViewById(R.id.ordersSelection);
         lvOrders = findViewById(R.id.ordersLV);
@@ -81,6 +93,20 @@ public class TableOrder extends AppCompatActivity implements AdapterView.OnItemC
 
         ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, Dessert);
 
+
+        spinnerT.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                OrdersAdapter.clear();
+                OrdersAdapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         mySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

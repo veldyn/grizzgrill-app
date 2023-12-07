@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="4dp"
         android:text="Table Selected:"
         android:textColor="@color/white"
         android:textSize="20sp"
@@ -24,45 +24,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="28dp"
         android:text="Orders:"
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TableSelectHeader" />
 
+
     <TextView
         android:id="@+id/waitressHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="68dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="4dp"
         android:text="Assigned Waitress:"
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/TableSelectHeader"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/TableText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="Table1"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/TableSelectHeader"
-        app:layout_constraintStart_toEndOf="@+id/TableSelectHeader"
-        app:layout_constraintTop_toTopOf="@+id/TableSelectHeader" />
-
-    <TextView
-        android:id="@+id/WaiterText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Andersen"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="@+id/waitressHeader"
-        app:layout_constraintTop_toBottomOf="@+id/waitressHeader" />
-
 
     <ListView
         android:id="@+id/ordersLV"
@@ -117,6 +97,26 @@
         android:textColor="#FFFFFF"
         app:layout_constraintStart_toEndOf="@+id/OrdersHeader"
         app:layout_constraintTop_toTopOf="@+id/OrdersHeader" />
+
+    <Spinner
+        android:id="@+id/TableSp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:background="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/TableSelectHeader"
+        app:layout_constraintTop_toTopOf="@+id/TableSelectHeader" />
+
+    <TextView
+        android:id="@+id/Employee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="36dp"
+        android:text="Employee"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/TableSp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
