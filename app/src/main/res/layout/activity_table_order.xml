@@ -11,11 +11,11 @@
         android:id="@+id/TableSelectHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
         android:text="Table Selected:"
-        android:textSize="20sp"
         android:textColor="@color/white"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,90 +24,99 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="28dp"
         android:text="Orders:"
-        android:textSize="20sp"
         android:textColor="@color/white"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TableText" />
+        app:layout_constraintTop_toBottomOf="@+id/TableSelectHeader" />
+
 
     <TextView
         android:id="@+id/waitressHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="88dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="4dp"
         android:text="Assigned Waitress:"
-        android:textSize="20sp"
         android:textColor="@color/white"
+        android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/TableSelectHeader"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/TableText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:text="Table1"
-        android:textColor="@color/white"
-        app:layout_constraintStart_toStartOf="@+id/TableSelectHeader"
-        app:layout_constraintTop_toBottomOf="@+id/TableSelectHeader" />
-
-    <TextView
-        android:id="@+id/WaiterText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Andersen"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="@+id/waitressHeader"
-        app:layout_constraintTop_toBottomOf="@+id/waitressHeader" />
-
-    <ScrollView
-        android:id="@+id/OrdersOnTable"
-        android:layout_width="377dp"
-        android:layout_height="205dp"
+    <ListView
+        android:id="@+id/ordersLV"
+        android:layout_width="399dp"
+        android:layout_height="222dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="12dp"
+        android:background="@color/yellow"
+        android:divider="@color/black"
+        android:dividerHeight="3dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/OrdersHeader">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="313dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="4dp"
-        android:text="add Item"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/OrdersHeader" />
 
     <Spinner
-        android:id="@+id/CatagorySelect"
-        android:layout_width="339dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="13dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/OrdersOnTable" />
+        android:id="@+id/mySpinner"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
 
-    <ScrollView
-        android:id="@+id/newItemSelect"
-        android:layout_width="362dp"
-        android:layout_height="259dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/white"
+
+
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ordersLV">
+
+    </Spinner>
+
+    <ListView
+        android:id="@+id/ordersSelection"
+        android:layout_width="387dp"
+        android:layout_height="271dp"
+
         android:layout_marginStart="4dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
+        android:background="@color/yellow"
+        android:divider="@color/black"
+        android:dividerHeight="3dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/CatagorySelect">
+        app:layout_constraintTop_toBottomOf="@+id/mySpinner" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:text="0.00"
+        android:textColor="#FFFFFF"
+        app:layout_constraintStart_toEndOf="@+id/OrdersHeader"
+        app:layout_constraintTop_toTopOf="@+id/OrdersHeader" />
+
+    <Spinner
+        android:id="@+id/TableSp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:background="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/TableSelectHeader"
+        app:layout_constraintTop_toTopOf="@+id/TableSelectHeader" />
+
+    <TextView
+        android:id="@+id/Employee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="36dp"
+        android:text="Employee"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/TableSp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

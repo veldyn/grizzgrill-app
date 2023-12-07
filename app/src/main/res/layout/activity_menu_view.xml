@@ -37,7 +37,7 @@
         <ListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/lvSelection"
+            android:id="@+id/ordersLV"
             android:background="@color/yellow"
             android:layout_marginTop="5dp"
             android:dividerHeight="3dp"
