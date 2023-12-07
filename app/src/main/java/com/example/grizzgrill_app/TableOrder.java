@@ -16,7 +16,9 @@ import android.widget.Spinner;
 
 public class TableOrder extends AppCompatActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener{
     ListView lvSelection;
+    ListView lvOrders;
     ArrayAdapter myArrayAdapter;
+    ArrayAdapter OrdersAdapter;
     String[] SpinnerArr = {"Breakfast", "Lunch", "Dinner", "Dessert"};
     String[] Breakfast = {"Blueberry Coffee Cake Muffin $3.99",
             "Breakfast Wrap $6.79",
@@ -56,12 +58,16 @@ public class TableOrder extends AppCompatActivity implements AdapterView.OnItemC
         setContentView(R.layout.activity_table_order);
 
 
-        lvSelection = findViewById(R.id.ordersLV);
+        lvSelection = findViewById(R.id.ordersSelection);
+        lvOrders = findViewById(R.id.ordersLV);
         mySpinner = findViewById(R.id.mySpinner);
         mySpinner.setOnItemSelectedListener(this);
         lvSelection.setOnItemClickListener(this);
+        lvOrders.setOnItemClickListener(this);
 
         myArrayAdapter = new ArrayAdapter(this, R.layout.managespinnerlayout,SpinnerArr);
+        OrdersAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1);
+        lvOrders.setAdapter(OrdersAdapter);
         mySpinner.setAdapter(myArrayAdapter);
         mySpinner.setOnItemSelectedListener(this);
 
@@ -104,7 +110,22 @@ public class TableOrder extends AppCompatActivity implements AdapterView.OnItemC
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        // Check if the clicked ListView is lvSelection or lvOrders
+        if (parent.getId() == R.id.ordersSelection) {
+            // Get the selected item from lvSelection
+            String selectedItem = (String) parent.getItemAtPosition(position);
 
+            // Add the selected item to lvOrders using OrdersAdapter
+            OrdersAdapter.add(selectedItem);
+            OrdersAdapter.notifyDataSetChanged();
+        } else if (parent.getId() == R.id.ordersLV) {
+            // Get the selected item from lvOrders
+            String selectedItem = (String) parent.getItemAtPosition(position);
+
+            // Remove the selected item from lvOrders using OrdersAdapter
+            OrdersAdapter.remove(selectedItem);
+            OrdersAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override

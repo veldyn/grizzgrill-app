@@ -11,11 +11,11 @@
         android:id="@+id/TableSelectHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="16dp"
         android:text="Table Selected:"
-        android:textSize="20sp"
         android:textColor="@color/white"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -66,8 +66,10 @@
 
     <ListView
         android:id="@+id/ordersLV"
-        android:layout_width="403dp"
-        android:layout_height="240dp"
+        android:layout_width="399dp"
+        android:layout_height="222dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="12dp"
         android:background="@color/yellow"
         android:divider="@color/black"
         android:dividerHeight="3dp"
@@ -79,14 +81,13 @@
     <Spinner
         android:id="@+id/mySpinner"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="12dp"
-        android:background="@color/black"
-        android:minHeight="32dp"
+        android:layout_height="50dp"
 
-        android:paddingLeft="10dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/white"
 
-        android:paddingRight="10dp"
+
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ordersLV">
 
@@ -94,27 +95,18 @@
 
     <ListView
         android:id="@+id/ordersSelection"
-        android:layout_width="400dp"
-        android:layout_height="287dp"
+        android:layout_width="387dp"
+        android:layout_height="271dp"
+
         android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
         android:background="@color/yellow"
         android:divider="@color/black"
         android:dividerHeight="3dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mySpinner"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="313dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="4dp"
-        android:text="add Item"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/mySpinner" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
