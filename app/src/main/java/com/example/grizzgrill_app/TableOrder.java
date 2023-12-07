@@ -48,9 +48,9 @@ public class TableOrder extends AppCompatActivity implements AdapterView.OnItemC
             "Warm Apple Crostata $6.49"
     };
     Spinner mySpinner;
-    TextView header;
+    TextView priceTxt;
 
-
+    float orderPrice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +61,7 @@ public class TableOrder extends AppCompatActivity implements AdapterView.OnItemC
         lvSelection = findViewById(R.id.ordersSelection);
         lvOrders = findViewById(R.id.ordersLV);
         mySpinner = findViewById(R.id.mySpinner);
+        priceTxt = findViewById(R.id.price);
         mySpinner.setOnItemSelectedListener(this);
         lvSelection.setOnItemClickListener(this);
         lvOrders.setOnItemClickListener(this);
@@ -114,6 +115,22 @@ public class TableOrder extends AppCompatActivity implements AdapterView.OnItemC
         if (parent.getId() == R.id.ordersSelection) {
             // Get the selected item from lvSelection
             String selectedItem = (String) parent.getItemAtPosition(position);
+            String[] parts = selectedItem.split("\\$");
+            if (parts.length > 1) {
+                // parts[1] contains the price as a string
+                String priceString = parts[1].trim();
+
+                // Convert the price string to a float
+                try {
+                    orderPrice += Float.parseFloat(priceString);
+
+                    // Set the float value to priceTxt
+                    priceTxt.setText(String.valueOf(orderPrice));
+                } catch (NumberFormatException e) {
+                    // Handle the case where the conversion to float fails
+                    e.printStackTrace();
+                }
+            }
 
             // Add the selected item to lvOrders using OrdersAdapter
             OrdersAdapter.add(selectedItem);
@@ -121,6 +138,22 @@ public class TableOrder extends AppCompatActivity implements AdapterView.OnItemC
         } else if (parent.getId() == R.id.ordersLV) {
             // Get the selected item from lvOrders
             String selectedItem = (String) parent.getItemAtPosition(position);
+            String[] parts = selectedItem.split("\\$");
+            if (parts.length > 1) {
+                // parts[1] contains the price as a string
+                String priceString = parts[1].trim();
+
+                // Convert the price string to a float
+                try {
+                    orderPrice -= Float.parseFloat(priceString);
+
+                    // Set the float value to priceTxt
+                    priceTxt.setText(String.valueOf(orderPrice));
+                } catch (NumberFormatException e) {
+                    // Handle the case where the conversion to float fails
+                    e.printStackTrace();
+                }
+            }
 
             // Remove the selected item from lvOrders using OrdersAdapter
             OrdersAdapter.remove(selectedItem);
