@@ -31,11 +31,10 @@ public class menuView extends AppCompatActivity implements AdapterView.OnItemCli
             "Cheese Burger$6.49",
             "Earlybird Burger$6.49"
     };
-    String[] Dinner = {"Black Tie Mousse Cake $6.99",
-            "Dolcini $2.79",
-            "Seasonal Sicilian Cheesecake $6.49",
-            "S'mores Layer Cake $6.79",
-            "Warm Apple Crostata $6.49"
+    String[] Dinner = {"3 Beef Soft Taco $13.99",
+            "Chicken Fingers $8.79",
+            "Mac n Cheese $9.49",
+            "Smash Burger $10.79"
     };
     String[] Dessert = {"Black Tie Mousse Cake $6.99",
             "Dolcini $2.79",
@@ -55,7 +54,7 @@ public class menuView extends AppCompatActivity implements AdapterView.OnItemCli
         setContentView(R.layout.activity_menu_view);
 
         header = findViewById(R.id.header);
-        lvSelection = findViewById(R.id.lvSelection);
+        lvSelection = findViewById(R.id.ordersLV);
         mySpinner = findViewById(R.id.mySpinner);
         mySpinner.setOnItemSelectedListener(this);
         lvSelection.setOnItemClickListener(this);
