@@ -178,7 +178,7 @@ public class EmpTableAssign extends AppCompatActivity {
                     String EMP_Q = " WHERE RTABLE_ID =";
                     String estring = "";
                     String cstring = ";";
-                    String assignString = AssignEmployee + HeaderTwoSpinner2.getSelectedItemPosition() + estring + EMP_Q + HeaderTwoSpinner1.getSelectedItem().toString() + cstring;
+                    String assignString = AssignEmployee + (HeaderTwoSpinner2.getSelectedItemPosition()+1) + estring + EMP_Q + HeaderTwoSpinner1.getSelectedItem().toString() + cstring;
                     db.execSQL(assignString);
                     //assignEmployee(EmployeeName, );
                 }

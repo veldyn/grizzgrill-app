@@ -2,10 +2,15 @@ package com.example.grizzgrill_app;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.database.Cursor;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,7 +19,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Spinner;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 public class TableOrder extends AppCompatActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener{
+    public static SQLiteDatabase db;
+    DBHelper myDBHelper;
     ListView lvSelection;
     ListView lvOrders;
     ArrayAdapter adapterT;
@@ -27,7 +37,7 @@ public class TableOrder extends AppCompatActivity implements AdapterView.OnItemC
             "Cereal $4.79",
             "Small Coffee $6.49",
             "Large Coffee $8.49",
-            "Meduim Coffee $7.49",
+            "Medium Coffee $7.49",
             "Warm Apple Crostata $6.49"
     };
     String[] Lunch = {"Ultimate Grilled Cheese $6.99",
@@ -49,7 +59,16 @@ public class TableOrder extends AppCompatActivity implements AdapterView.OnItemC
             "Warm Apple Crostata $6.49"
     };
     Spinner mySpinner;
+    Spinner spinnerT;
     TextView priceTxt;
+    TextView EmployeeName;
+
+    //Database Elements:
+    ArrayList<Integer> TableNumbers;
+    ArrayList<String> ENames;
+    //Database queries:
+    String TQuery = "SELECT RTABLE_ID FROM RTABLES";
+    String grabEmployeeQuery = "SELECT EMPLOYEES.EMPLOYEE_NAME FROM EMPLOYEES JOIN RTABLES ON RTABLES.EMPLOYEE_ID = EMPLOYEES.EMPLOYEE_ID WHERE RTABLES.RTABLE_ID = ";
 
     float orderPrice;
 
@@ -58,22 +77,23 @@ public class TableOrder extends AppCompatActivity implements AdapterView.OnItemC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_table_order);
 
-        Spinner spinnerT = findViewById(R.id.TableSp);
+        spinnerT = findViewById(R.id.TableSp);
 
         // Creating an ArrayAdapter using the string array and a default spinner layout
         String[] numbers = {"1", "2", "3", "4", "5"};
-        adapterT = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, numbers);
+        //adapterT = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, numbers);
 
         // Specify the layout to use when the list of choices appears
-        adapterT.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //adapterT.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         // Apply the adapter to the spinner
-        spinnerT.setAdapter(adapterT);
+        //spinnerT.setAdapter(adapterT);
 
         lvSelection = findViewById(R.id.ordersSelection);
         lvOrders = findViewById(R.id.ordersLV);
         mySpinner = findViewById(R.id.mySpinner);
         priceTxt = findViewById(R.id.price);
+        EmployeeName = findViewById(R.id.Employee);
         mySpinner.setOnItemSelectedListener(this);
         lvSelection.setOnItemClickListener(this);
         lvOrders.setOnItemClickListener(this);
@@ -93,6 +113,9 @@ public class TableOrder extends AppCompatActivity implements AdapterView.OnItemC
 
         ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, Dessert);
 
+        createDB();
+        getTResult(TQuery);
+
 
         spinnerT.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -100,6 +123,7 @@ public class TableOrder extends AppCompatActivity implements AdapterView.OnItemC
                 OrdersAdapter.clear();
                 OrdersAdapter.notifyDataSetChanged();
 
+                getEResult(grabEmployeeQuery + (position+1) + ";");
             }
 
             @Override
@@ -195,5 +219,59 @@ public class TableOrder extends AppCompatActivity implements AdapterView.OnItemC
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    @SuppressLint("Range")
+    public void getEResult(String q) {
+        Cursor result = db.rawQuery(q, null);
+        if (result != null) {
+            result.moveToNext();
+            EmployeeName.setText(result.getString(0));
+            result.close();
+        }
+    }//end of getResult
+
+    public void getTResult(String q) {
+        Cursor result = db.rawQuery(q, null);
+        result.moveToFirst();
+        int count = result.getCount();
+        Log.i("count=", String.valueOf(count));
+        //arrays for name, ingredients and preparation for each recipe
+        TableNumbers = new ArrayList<Integer>();
+        //just to give number for each recipe
+        int i = 1;
+        if (count >= 1) {
+            do {
+                //Adjust column index for appropriate column (will be 0 most times)
+                TableNumbers.add(result.getInt(0));
+                i++;
+            } while (result.moveToNext());
+        }
+        if (adapterT == null) {
+            adapterT = new ArrayAdapter(this, R.layout.managespinnerlayout, TableNumbers);
+            spinnerT.setAdapter(adapterT);
+        } else {
+            adapterT.clear();
+            adapterT.addAll(TableNumbers);
+            adapterT.notifyDataSetChanged();
+            spinnerT.setAdapter(adapterT);
+        }
+    }//end of getResult
+
+    public void createDB() {
+        myDBHelper = new DBHelper(this);
+        try {
+            myDBHelper.createDataBase();
+
+        } catch (IOException ioe) {
+
+            throw new Error("Unable to create database");
+        }
+
+        try {
+            myDBHelper.openDataBase();
+        } catch (SQLException sqle) {
+        }
+        db = myDBHelper.getWritableDatabase();
     }
 }
