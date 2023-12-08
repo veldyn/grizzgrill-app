@@ -11,10 +11,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <Spinner
             android:id="@+id/mySpinner"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="56dp"
             android:background="@color/yellow"
             android:minHeight="32dp"
             android:paddingLeft="10dp"
