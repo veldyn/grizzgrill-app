@@ -227,7 +227,6 @@ public class TableOrder extends AppCompatActivity implements AdapterView.OnItemC
     public void getEResult(String q) {
         Cursor result = db.rawQuery(q, null);
         if (result != null && result.moveToNext()) {
-            result.moveToNext();
             EmployeeName.setText(result.getString(0));
         } else {
             EmployeeName.setText("No Employee Assigned");
