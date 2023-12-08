@@ -122,7 +122,9 @@ public class TableOrder extends AppCompatActivity implements AdapterView.OnItemC
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 OrdersAdapter.clear();
                 OrdersAdapter.notifyDataSetChanged();
-
+                orderPrice = 0;
+                priceTxt.setText(String.valueOf(orderPrice));
+                
                 getEResult(grabEmployeeQuery + (position+1) + ";");
             }
 
