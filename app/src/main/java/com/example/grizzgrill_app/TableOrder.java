@@ -224,11 +224,13 @@ public class TableOrder extends AppCompatActivity implements AdapterView.OnItemC
     @SuppressLint("Range")
     public void getEResult(String q) {
         Cursor result = db.rawQuery(q, null);
-        if (result != null) {
+        if (result != null && result.moveToNext()) {
             result.moveToNext();
             EmployeeName.setText(result.getString(0));
-            result.close();
+        } else {
+            EmployeeName.setText("No Employee Assigned");
         }
+        result.close();
     }//end of getResult
 
     public void getTResult(String q) {
